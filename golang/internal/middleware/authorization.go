@@ -4,9 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/realrubr2/golang/api"
-	"github.com/realrubr2/golang/internal/tools"
-	"github.com/realrubr2/ramon-coderen/api"
+	"github.com/Realrubr2/ramon-coderen/golang/api"
+	"github.com/Realrubr2/ramon-coderen/golang/internal/tools"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -25,14 +24,14 @@ func Authorization(next http.Handler) http.Handler{
 		var database *tools.DatabaseInterface
 		database, err = tools.NewDatabase()
 		if err != nil{
-			api.internalErrorHandler(w)
+			api.InternalErrorHandler(w)
 			return
 		}
 
-		var loginDetails *tools.loginDetails
-		loginDetails = (*database).GetUserLoginDetails(username)
+		var LoginDetails *tools.LoginDetails
+		LoginDetails = (*database).GetUserLoginDetails(username)
 
-		if(loginDetails == nil || (token !=(*loginDetails).AuthToken)){
+		if(LoginDetails == nil || (token !=(*LoginDetails).AuthToken)){
 			log.Error(unAuthorizedError)
 			api.RequestErrorHandler(w, unAuthorizedError)
 			return

@@ -1,16 +1,16 @@
 package handlers
 
 import (
+	"github.com/Realrubr2/ramon-coderen/golang/internal/middleware"
 	"github.com/go-chi/chi"
 	chimiddle "github.com/go-chi/chi/middleware"
-	"github.com/realrubr/golang/internal/middleware"
 )
 
-func handler(rout *chi.Mux){
+func Handler(rout *chi.Mux){
 	//global middleware
 	rout.Use(chimiddle.StripSlashes)
 	rout.Route("/account", func(router chi.Router) {
-		router.use(middleware.Authorization)
+		router.Use(middleware.Authorization)
 		router.Get("/coins", GetCoinBalance)
 	})
 }
